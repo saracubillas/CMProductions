@@ -2,7 +2,8 @@
     "name": "CMProductions",
     "require": {
         "symfony/config": "~2.5",
-        "symfony/console": "~2.5"
+        "symfony/console": "~2.5",
+        "symfony/yaml": "^2.7"
     },
     "require-dev": {
         "behat/behat": "3.0.*",
