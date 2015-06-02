@@ -4,9 +4,17 @@ namespace CMProductions\Domain\Model;
 
 use CMProductions\Domain\Model\Video\Video;
 
+/**
+ * Class ParserGlorf
+ * @package CMProductions\Domain\Model
+ */
 class ParserGlorf implements Parser
 {
 
+    /**
+     * @return array
+     * @throws ParsingErrorException
+     */
     public function parse()
     {
         try {
@@ -15,13 +23,13 @@ class ParserGlorf implements Parser
             $videos = [];
             foreach ($objectContent->videos as $video)
             {
-                $videos[] = new Video(1, $video->title, $video->tags, $video->url);
+                $videos[] = new Video($video->title, $video->tags, $video->url);
             }
 
             return $videos;
 
         } catch (\Exception $e) {
-
+            throw new ParsingErrorException("Unable to parse the JSON string. ". $e->getMessage());
         }
     }
 

@@ -2,7 +2,6 @@
 
 namespace CMProductions\Domain\Model\Video;
 
-
 /**
  * Class Video
  * @package CMProductions\Domain\Model\Video
@@ -28,6 +27,7 @@ class Video
      * @var string
      */
     protected $url;
+
     /**
      * @var \DateTime
      */
@@ -38,16 +38,15 @@ class Video
      */
     protected $updatedOn;
 
-    public function __construct($videoId, $name, $tags, $url)
+    public function __construct($name, $tags, $url, $videoId = null)
     {
-        $this->videoId = $videoId;
         $this->name = $name;
         $this->tags = $tags;
         $this->url = $url;
+        $this->videoId = $videoId === null ?: uniqid();
 
         $this->createdOn = new \DateTime();
         $this->updatedOn = new \DateTime();
-
     }
 
     public function id()
