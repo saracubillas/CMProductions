@@ -19,8 +19,15 @@ class Video
      */
     protected $name;
 
+    /**
+     * @var string
+     */
     protected $tags;
 
+    /**
+     * @var string
+     */
+    protected $url;
     /**
      * @var \DateTime
      */
@@ -31,19 +38,26 @@ class Video
      */
     protected $updatedOn;
 
-    public function __construct($videoId, $name, $tags)
+    public function __construct($videoId, $name, $tags, $url)
     {
         $this->videoId = $videoId;
         $this->name = $name;
         $this->tags = $tags;
+        $this->url = $url;
 
         $this->createdOn = new \DateTime();
         $this->updatedOn = new \DateTime();
+
     }
 
     public function id()
     {
         return $this->videoId;
+    }
+
+    public function url()
+    {
+        return $this->url;
     }
 
 }

@@ -4,21 +4,22 @@ namespace CMProductions\Domain\Model;
 
 use CMProductions\Domain\Model\Video\Video;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Parser as SymfonyYamlParser;
 
-class ImporterFlub extends Importer
+class ParserFlub implements Parser
 {
 
-    public function import()
+    public function parse()
     {
         try {
-            $yaml = new Parser();
-
+            $yaml = new SymfonyYamlParser();
             $yamlContent = $yaml->parse(file_get_contents(__DIR__.'/../../../../'.self::VIDEOS_FEED_FOLDER.'/flub', FILE_USE_INCLUDE_PATH));
+
+            $videos = [];
 
             foreach ($yamlContent as $video)
             {
-                $this->repository->persist(new Video(1, $video->name, $video->labels));
+                $videos[] = new Video(1, $video->name, $video->labels, $video->url);
             }
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s", $e->getMessage());
