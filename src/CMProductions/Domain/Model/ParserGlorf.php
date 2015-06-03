@@ -17,15 +17,19 @@ class ParserGlorf implements Parser
      */
     public function parse()
     {
-        $jsonContent = $this->getFeed();
-        $objectContent = json_decode($jsonContent);
-        $videos = [];
-        foreach ($objectContent->videos as $video)
-        {
-            $videos[] = new Video($video->title, $video->tags, $video->url);
-        }
+        try {
+            $jsonContent = $this->getFeed();
+            $objectContent = json_decode($jsonContent);
+            $videos = [];
+            foreach ($objectContent->videos as $video)
+            {
+                $videos[] = new Video($video->title, $video->tags, $video->url);
+            }
+            return $videos;
 
-        return $videos;
+        } catch (\Exception $e) {
+            throw new ParsingErrorException("Unable to parse the JSON string. ". $e->getMessage());
+        }
     }
 
     /**
@@ -34,11 +38,6 @@ class ParserGlorf implements Parser
      */
     protected function getFeed()
     {
-        try {
-            return file_get_contents(__DIR__ . '/../../../../feed-exports/glorf', FILE_USE_INCLUDE_PATH);
-        } catch (\Exception $e) {
-            throw new ParsingErrorException("Unable to parse the JSON string. ". $e->getMessage());
-        }
+        return file_get_contents(__DIR__ . '/../../../../feed-exports/glorf', FILE_USE_INCLUDE_PATH);
     }
-
 }
