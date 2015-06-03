@@ -31,8 +31,8 @@ class ImporterTest extends \PHPUnit_Framework_TestCase
     {
         $this->deleteTestVideos();
         $this->importer->import();
-        $video1 = new Video('testVideo1', 'video1','some, tags', __DIR__. '/../../DummyVideos/a' );
-        $video2 = new Video('testVideo2', 'video2','some, tags', __DIR__. '/../../DummyVideos/b' );
+        $video1 = new Video('video1',['some', 'tags'], __DIR__. '/../../DummyVideos/a', 'testVideo1');
+        $video2 = new Video('video2',['some', 'tags'], __DIR__. '/../../DummyVideos/b', 'testVideo2');
         $this->assertEquals(['testVideo1' => $video1, 'testVideo2' => $video2], $this->repository->findAllVideos());
         $this->assertTrue(file_exists($this->videoTest1));
         $this->assertTrue(file_exists($this->videoTest2));
@@ -56,8 +56,8 @@ class DummyParser implements Parser
 {
     public function parse()
     {
-        $video1 = new Video('testVideo1', 'video1','some, tags', __DIR__. '/../../DummyVideos/a' );
-        $video2 = new Video('testVideo2', 'video2','some, tags', __DIR__. '/../../DummyVideos/b' );
+        $video1 = new Video('video1',['some', 'tags'], __DIR__. '/../../DummyVideos/a', 'testVideo1');
+        $video2 = new Video('video2',['some', 'tags'], __DIR__. '/../../DummyVideos/b', 'testVideo2');
 
         return [$video1, $video2];
     }

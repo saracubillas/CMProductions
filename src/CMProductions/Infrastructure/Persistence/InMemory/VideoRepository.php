@@ -11,7 +11,7 @@ class VideoRepository implements VideoRepositoryInterface
     /**
      * @var Video[]
      */
-    private $videos = array();
+    private $videos = [];
 
     /**
      * @param $videoId

@@ -14,10 +14,11 @@ class ParserGlorfTest extends \PHPUnit_Framework_TestCase
     {
         $this->parserGlorf = new ParserGlorf();
     }
+
     /** @test */
-    public function ParserGlorf()
+    public function parserGlorf()
     {
-        $this->parserGlorf->parse();
+//        var_dump($this->parserGlorf->parse());
 
     }
 }

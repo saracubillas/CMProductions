@@ -43,7 +43,7 @@ class Video
         $this->name = $name;
         $this->tags = $tags;
         $this->url = $url;
-        $this->videoId = $videoId === null ?: uniqid();
+        $this->videoId = $videoId === null ? uniqid() : $videoId;
 
         $this->createdOn = new \DateTime();
         $this->updatedOn = new \DateTime();

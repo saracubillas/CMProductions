@@ -37,8 +37,7 @@ class Importer
 
         foreach ($videos as $video)
         {
-            $this->download($video) ?:
-            $this->repository->persist($video);
+            !$this->download($video) ?: $this->repository->persist($video);
         }
     }
 
@@ -63,7 +62,8 @@ class Importer
 
     private function printOuput(Video $video)
     {
-        printf("importing: ' %s '; URL: %s ; Tags: %s  ; \n", $video->name(), $video->url(), implode(',' , $video->tags()));
+        printf("importing: ' %s '; URL: %s ; Tags: %s  ; \n", $video->name(), $video->url(),
+            implode(',' , $video->tags()));
     }
 
 }

@@ -17,17 +17,25 @@ class ParserGlorf implements Parser
      */
     public function parse()
     {
+        $jsonContent = $this->getFeed();
+        $objectContent = json_decode($jsonContent);
+        $videos = [];
+        foreach ($objectContent->videos as $video)
+        {
+            $videos[] = new Video($video->title, $video->tags, $video->url);
+        }
+
+        return $videos;
+    }
+
+    /**
+     * @return string
+     * @throws ParsingErrorException
+     */
+    protected function getFeed()
+    {
         try {
-            $jsonContent =  file_get_contents(__DIR__.'/../../../../feed-exports/glorf', FILE_USE_INCLUDE_PATH);
-            $objectContent = json_decode($jsonContent);
-            $videos = [];
-            foreach ($objectContent->videos as $video)
-            {
-                $videos[] = new Video($video->title, $video->tags, $video->url);
-            }
-
-            return $videos;
-
+            return file_get_contents(__DIR__ . '/../../../../feed-exports/glorf', FILE_USE_INCLUDE_PATH);
         } catch (\Exception $e) {
             throw new ParsingErrorException("Unable to parse the JSON string. ". $e->getMessage());
         }
