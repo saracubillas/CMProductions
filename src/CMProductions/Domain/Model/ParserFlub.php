@@ -15,12 +15,15 @@ class ParserFlub implements Parser
             $yaml = new SymfonyYamlParser();
             $yamlContent = $yaml->parse(file_get_contents(__DIR__.'/../../../../feed-exports/flub', FILE_USE_INCLUDE_PATH));
             $videos = [];
-
             foreach ($yamlContent as $video)
             {
-                $videos[] = new Video($video->name, $video->labels, $video->url);
+                $tags = isset($video['labels']) ? explode(',' , $video['labels']) : [];
+                $videos[] = new Video($video['name'], $tags , $video['url']);
             }
-        } catch (ParseException $e) {
+
+            return $videos;
+
+        } catch (\Exception $e) {
             throw new ParsingErrorException("Unable to parse the YAML string. ". $e->getMessage());
         }
     }

@@ -19,7 +19,7 @@ class Video
     protected $name;
 
     /**
-     * @var string
+     * @var Array
      */
     protected $tags;
 
