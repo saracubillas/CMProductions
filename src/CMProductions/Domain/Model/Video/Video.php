@@ -59,4 +59,14 @@ class Video
         return $this->url;
     }
 
+    public function name()
+    {
+        return $this->name;
+    }
+
+    public function tags()
+    {
+        return $this->tags;
+    }
+
 }
